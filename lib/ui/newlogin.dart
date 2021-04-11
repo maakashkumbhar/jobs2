@@ -1,12 +1,66 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jobs_app2/net/flutterfire.dart';
 import 'package:jobs_app2/ui/home_view.dart';
 
-class GlassMorphism extends StatelessWidget {
+class GlassMorphism extends StatefulWidget {
+  @override
+  _GlassMorphismState createState() => _GlassMorphismState();
+}
+
+class _GlassMorphismState extends State<GlassMorphism> {
   TextEditingController _emailField = TextEditingController();
+
   TextEditingController _passwordField = TextEditingController();
+
+  Future<bool> signIn(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return true;
+    } catch (e) {
+      showError(e.message);
+      print(e);
+    }
+  }
+
+  Future<bool> register(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The Password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('Ther account already exists for that email.');
+      }
+      return false;
+    } catch (e) {
+      showError(e.message);
+      print(e);
+    }
+  }
+
+  showError(String errormessage) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('ERROR'),
+            content: Text(errormessage),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
