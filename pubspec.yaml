@@ -32,6 +32,10 @@ dependencies:
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.1"
   cloud_firestore: "^0.16.0+1"
+  google_fonts: ^1.1.2
+  flutter_vector_icons: ^1.0.0
+  image_picker: ^0.6.7+22
+  font_awesome_flutter: ^9.0.0
 
 dev_dependencies:
   flutter_test:

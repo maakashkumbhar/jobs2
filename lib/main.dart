@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:jobs_app2/ui/hr_login.dart';
 import 'package:jobs_app2/ui/my_jobs.dart';
 import 'package:jobs_app2/ui/authentication.dart';
 import 'package:jobs_app2/ui/getstartedpage.dart';
@@ -30,7 +31,8 @@ class _MyAppState extends State<MyApp> {
         '/Authentication': (context) => GlassMorphism(),
         '/HomeScreen': (context) => Home(),
         '/SplashScreen': (context) => Splash_screen(),
-        '/MyJobs': (context) => MyJobs()
+        '/MyJobs': (context) => MyJobs(),
+        '/HrLogin': (context) => HrLogin()
       },
       home: Home(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
 import 'package:jobs_app2/ui/authentication.dart';
 import 'package:jobs_app2/ui/newlogin.dart';
@@ -55,6 +56,20 @@ class MainDrawer extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 10,
+                ),
+                ListTile(
+                  title: Text(
+                    'HR Login',
+                    style: TextStyle(fontSize: 20.0, color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushNamed("HR_Login");
+                  },
+                  leading: Icon(
+                    FontAwesome.user_plus,
+                    color: Colors.black,
+                    size: 30,
+                  ),
                 ),
                 ListTile(
                   tileColor: Colors.white,

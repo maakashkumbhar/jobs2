@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobs_app2/ui/MainDrawer.dart';
 import 'package:jobs_app2/ui/addnewjobs.dart';
 import 'package:jobs_app2/ui/authentication.dart';
@@ -41,7 +42,7 @@ class _HomeState extends State<Home> {
                   children: snapshot.data.docs.map((document) {
                 return Container(
                   width: MediaQuery.of(context).size.width / 1.2,
-                  height: 300.0,
+                  height: 350.0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
@@ -53,122 +54,208 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Hr Name:${document.data()['Hr_Name']}",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                Icon(FontAwesome.user),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Hr Name:${document.data()['Hr_Name']}",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Hr ContactInfo:${document.data()['Hr_Contactinfo']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.phone),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Hr ContactInfo:${document.data()['Hr_Contactinfo']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Job Details:${document.data()['Job_details']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.info_circle),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Job Details:${document.data()['Job_details']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Vacancy:${document.data()['Vacancy']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.bars),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Vacancy:${document.data()['Vacancy']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Salary:${document.data()['Salary']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.money),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Salary:${document.data()['Salary']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Job Locations:${document.data()['Job_location']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.search_plus),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Job Locations:${document.data()['Job_location']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              "Part or Full time:${document.data()['partorfull']}",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(FontAwesome.hourglass_1),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Part or Full time:${document.data()['partorfull']}",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 150,
-                                  height: 40,
-                                  child: MaterialButton(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.add_circle_outline_outlined,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "Apply Here!",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    height: 40,
+                                    child: MaterialButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.add_circle_outline_outlined,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Apply Here!",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      color: Colors.blueAccent,
+                                      onPressed: () {},
                                     ),
-                                    color: Colors.blueAccent,
-                                    onPressed: () {},
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                Container(
-                                  width: 150,
-                                  height: 40,
-                                  child: MaterialButton(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "View Details!",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ],
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width: 150,
+                                    height: 40,
+                                    child: MaterialButton(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            "View Details!",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                      color: Colors.blueAccent,
+                                      onPressed: () {},
                                     ),
-                                    color: Colors.blueAccent,
-                                    onPressed: () {},
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),
