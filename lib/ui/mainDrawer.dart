@@ -63,7 +63,7 @@ class MainDrawer extends StatelessWidget {
                     style: TextStyle(fontSize: 20.0, color: Colors.black),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamed("HR_Login");
+                    Navigator.of(context).pushNamed("/HrLogin");
                   },
                   leading: Icon(
                     FontAwesome.user_plus,
