@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
 import 'package:jobs_app2/ui/authentication.dart';
-import 'package:jobs_app2/ui/newlogin.dart';
+import 'package:jobs_app2/ui/newlogger.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -81,8 +81,7 @@ class MainDrawer extends StatelessWidget {
                     signOut();
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => GlassMorphism()),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                         (route) => false);
                   },
                   leading: Icon(
