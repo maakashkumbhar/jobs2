@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       margin: EdgeInsets.all(10.0),
-                      elevation: 6,
+                      elevation: 2,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -195,65 +195,32 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Container(
-                                    width: 150,
-                                    height: 40,
-                                    child: MaterialButton(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.add_circle_outline_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "Apply Here!",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      color: Colors.blueAccent,
-                                      onPressed: () {},
+                                  MaterialButton(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.add_circle_outline_outlined,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "Apply On the Number Provided!",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
                                     ),
+                                    color: Colors.blueAccent,
+                                    onPressed: () {},
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
-                                    width: 150,
-                                    height: 40,
-                                    child: MaterialButton(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.arrow_forward,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "View Details!",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      color: Colors.blueAccent,
-                                      onPressed: () {},
-                                    ),
-                                  )
                                 ],
                               ),
                             )
