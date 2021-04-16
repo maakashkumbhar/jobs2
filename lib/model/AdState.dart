@@ -9,7 +9,7 @@ class AdState {
 
   String get banneradunit => Platform.isAndroid
       ? 'ca-app-pub-3940256099942544/6300978111'
-      : 'ca-app-pub-3940256099942544/2934735716';
+      : 'ca-app-pub-3940256099942544/6300978111';
   AdListener get adListener => _adListener;
 
   AdListener _adListener = AdListener(

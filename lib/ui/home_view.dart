@@ -5,7 +5,6 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobs_app2/model/AdState.dart';
 import 'package:jobs_app2/ui/MainDrawer.dart';
 import 'package:jobs_app2/ui/addnewjobs.dart';
-import 'package:jobs_app2/ui/authentication.dart';
 import 'package:jobs_app2/ui/errorpage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -265,6 +264,7 @@ class _HomeState extends State<Home> {
                     )
                   else
                     Container(
+                      width: MediaQuery.of(context).size.width,
                       height: 50,
                       child: AdWidget(ad: banner),
                     )

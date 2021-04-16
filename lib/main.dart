@@ -7,6 +7,7 @@ import 'package:jobs_app2/ui/my_jobs.dart';
 
 import 'package:jobs_app2/ui/home_view.dart';
 import 'package:jobs_app2/ui/newlogger.dart';
+import 'package:jobs_app2/ui/registerPage.dart';
 import 'package:jobs_app2/ui/splash_screnn.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,8 @@ class _MyAppState extends State<MyApp> {
         '/HomeScreen': (context) => Home(),
         '/SplashScreen': (context) => Splash_screen(),
         '/MyJobs': (context) => MyJobs(),
-        '/HrLogin': (context) => HrLogin()
+        '/HrLogin': (context) => HrLogin(),
+        '/RegisterPage': (context) => RegisterPage()
       },
       home: Home(),
     );

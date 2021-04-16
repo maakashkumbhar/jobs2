@@ -223,25 +223,28 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.only(top: 40),
           child: FlatButton(
             onPressed: () {},
-            child: RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text: 'Dont have an account? ',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: MediaQuery.of(context).size.height / 40,
-                    fontWeight: FontWeight.w400,
+            child: MaterialButton(
+              onPressed: () => Navigator.of(context).pushNamed('/RegisterPage'),
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: 'Dont have an account? ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: 'Sign Up',
-                  style: TextStyle(
-                    color: mainColor,
-                    fontSize: MediaQuery.of(context).size.height / 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ]),
+                  TextSpan(
+                    text: 'Sign Up',
+                    style: TextStyle(
+                      color: mainColor,
+                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ]),
+              ),
             ),
           ),
         ),

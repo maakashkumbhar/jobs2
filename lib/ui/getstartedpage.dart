@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jobs_app2/ui/authentication.dart';
 import 'package:jobs_app2/ui/home_view.dart';
+import 'package:jobs_app2/ui/newlogger.dart';
 
 class GettingStartedPage extends StatefulWidget {
   @override
@@ -73,7 +73,7 @@ class _GettingStartedPageState extends State<GettingStartedPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Authentication()));
+                                builder: (context) => LoginPage()));
                       },
                       child: Row(
                         children: [
