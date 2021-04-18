@@ -2,8 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:jobs_app2/model/AdState.dart';
-import 'package:jobs_app2/ui/hr_login.dart';
+import 'package:jobs_app2/ui/UserView.dart';
+
+import 'package:jobs_app2/ui/hr_register.dart';
+import 'package:jobs_app2/ui/mainHome.dart';
 import 'package:jobs_app2/ui/my_jobs.dart';
+import 'package:jobs_app2/ui/hr_login.dart';
 
 import 'package:jobs_app2/ui/home_view.dart';
 import 'package:jobs_app2/ui/newlogger.dart';
@@ -44,7 +48,10 @@ class _MyAppState extends State<MyApp> {
         '/HomeScreen': (context) => Home(),
         '/SplashScreen': (context) => Splash_screen(),
         '/MyJobs': (context) => MyJobs(),
-        '/HrLogin': (context) => HrLogin(),
+        '/HrRegister': (context) => Hr_register(),
+        '/HrLogin': (context) => Hr_login(),
+        '/NormalUser': (context) => UserView(),
+        '/mainHome': (context) => MainScreen(),
         '/RegisterPage': (context) => RegisterPage()
       },
       home: Home(),

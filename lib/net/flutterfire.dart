@@ -7,6 +7,7 @@ int getUniqueid() {
   uniqueid += 1;
   return uniqueid;
 }
+String uid = FirebaseAuth.instance.currentUser.uid;
 
 Future<bool> signIn(String email, String password) async {
   try {
@@ -18,10 +19,43 @@ Future<bool> signIn(String email, String password) async {
   }
 }
 
-Future<bool> register(String email, String password) async {
+Future<bool> register(String email, String password ) async {
   try {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
+    return true;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('The Password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      print('Ther account already exists for that email.');
+    }
+    return false;
+  } catch (e) {
+    print(e.toString());
+    return false;
+  }
+}
+
+Future<bool> register_hrlogin(String name , String contactinfo, String email ,String password ,String User_type) async {
+  try {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    DocumentReference documentReference =
+    FirebaseFirestore.instance.collection('Hr_Users').doc(uid);
+    FirebaseFirestore.instance.runTransaction((transaction) async{
+      DocumentSnapshot documentSnapshot = await transaction.get(documentReference);
+      if(!documentSnapshot.exists)
+      {
+        documentReference.set({
+          "Name":name,
+          "contactinfo":contactinfo,
+          "email":email,
+          "password":password,
+          "type": User_type,
+        });
+      }
+    });
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

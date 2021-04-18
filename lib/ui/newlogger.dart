@@ -10,7 +10,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String User_type = 'User';
   String email, password;
+
+
+
+
   Widget _buildLogo() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -100,17 +105,8 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(30.0),
             ),
             onPressed: () async {
-              bool shouldNavigate = await signIn(email, password);
-              if (shouldNavigate) {
-                //Navigate
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Home(),
-                    ));
-              } else {
-                //Add Somthing for the else part like a 404 page
-              }
+              bool shouldNavigate = await  signIn(email, password);
+              Navigator.of(context).pushNamed('/NormalUser');
             },
             child: Text(
               "Login",

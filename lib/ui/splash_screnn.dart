@@ -1,7 +1,14 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:jobs_app2/ui/home_view.dart';
+
+
+final CollectionReference  userref = FirebaseFirestore.instance.collection('Hr_Users');
 
 class Splash_screen extends StatefulWidget {
   @override
@@ -9,6 +16,10 @@ class Splash_screen extends StatefulWidget {
 }
 
 class _Splash_screenState extends State<Splash_screen> {
+
+
+
+
   @override
   void initState() {
     super.initState();
@@ -16,7 +27,7 @@ class _Splash_screenState extends State<Splash_screen> {
       if (await FirebaseAuth.instance.currentUser == null) {
         Navigator.of(context).pushNamed('/Authentication');
       } else {
-        Navigator.of(context).pushNamed('/HomeScreen');
+        Navigator.of(context).pushNamed('/NormalUser');
       }
     });
   }

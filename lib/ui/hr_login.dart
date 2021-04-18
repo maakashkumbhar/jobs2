@@ -1,158 +1,303 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jobs_app2/model/constants.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-class HrLogin extends StatefulWidget {
+class Hr_login extends StatefulWidget {
   @override
-  _HrLoginState createState() => _HrLoginState();
+  _Hr_loginState createState() => _Hr_loginState();
 }
 
-class _HrLoginState extends State<HrLogin> {
-  TextEditingController _hrNameController = TextEditingController();
-  TextEditingController _hrcontactController = TextEditingController();
-  TextEditingController _hremailController = TextEditingController();
-  String imageUrl;
-//////////////////////////////
-  uploadImage() async {
-    final _storage = FirebaseStorage.instance;
-    final _picker = ImagePicker();
-    PickedFile image;
+class _Hr_loginState extends State<Hr_login> {
+  String User_type = 'User';
+  String email, password;
 
-    //Check Permissions
-    await Permission.photos.request();
-
-    var permissionStatus = await Permission.photos.status;
-
-    if (permissionStatus.isGranted) {
-      //Select Image
-      image = await _picker.getImage(source: ImageSource.gallery);
-      var file = File(image.path);
-
-      if (image != null) {
-        //Upload to Firebase
-        var snapshot =
-            await _storage.ref().child('folderName/imageName').putFile(file);
-
-        var downloadUrl = await snapshot.ref.getDownloadURL();
-
-        setState(() {
-          imageUrl = downloadUrl;
-        });
-      } else {
-        print('No Path Received');
-      }
-    } else {
-      print('Grant Permissions and try again');
-    }
-  }
-//////////////////////////////
-
-  Future<bool> addHrUser(
-    String hrname,
-    String hrcontactinfo,
-    String email,
-  ) {
-    String uid = FirebaseAuth.instance.currentUser.uid;
-    DocumentReference documentReference =
-        FirebaseFirestore.instance.collection('HR_user').doc();
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      DocumentSnapshot snapshot = await transaction.get(documentReference);
-      if (!snapshot.exists) {
-        documentReference.set({
-          "UserType": "HR",
-          "Hr_Name": hrname,
-          "Hr_contactinfo": hrcontactinfo,
-          "email": email
-        });
-
-        return true;
-      }
-    });
+  Widget _buildLogo() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 70),
+          child: Text(
+            'City Jobs',
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height / 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        )
+      ],
+    );
   }
 
-  ///////////////////////////
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text("HR_Login")),
+  Widget _buildEmailRow() {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        onChanged: (value) {
+          setState(() {
+            email = value;
+          });
+        },
+        decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.email,
+              color: mainColor,
+            ),
+            labelText: 'E-mail'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 1.2,
-              width: MediaQuery.of(context).size.width / 1.2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "HR_Name",
-                        labelStyle: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      controller: _hrNameController,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "HR_Contact Info",
-                          labelStyle: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
-                      controller: _hrcontactController,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          labelText: "HR_Email",
-                          labelStyle: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
-                      controller: _hremailController,
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
+    );
+  }
+
+  Widget _buildPasswordRow() {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        obscureText: true,
+        onChanged: (value) {
+          setState(() {
+            password = value;
+          });
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.lock,
+            color: mainColor,
+          ),
+          labelText: 'Password',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildForgetPasswordButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        FlatButton(
+          onPressed: () {},
+          child: Text("Forgot Password"),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoginButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          height: 1.4 * (MediaQuery.of(context).size.height / 20),
+          width: 5 * (MediaQuery.of(context).size.width / 10),
+          margin: EdgeInsets.only(bottom: 20),
+          child: RaisedButton(
+            elevation: 5.0,
+            color: mainColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            onPressed: () async {
+              bool shouldNavigate = await signIn(email, password);
+              Navigator.of(context).pushNamed('/NormalUser');
+            },
+            child: Text(
+              "Login",
+              style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.5,
+                fontSize: MediaQuery.of(context).size.height / 40,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildOrRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: Text(
+            '- OR -',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildSocialBtnRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: mainColor,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 2),
+                    blurRadius: 6.0)
+              ],
+            ),
+            child: Icon(
+              FontAwesomeIcons.google,
+              color: Colors.white,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildContainer() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
                     Text(
-                      "Please Provide with a Photo Identity Proof!",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    RaisedButton(
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Icon(FontAwesome.image),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text("Upload Image"),
-                          ],
-                        ),
+                      "Login",
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height / 30,
                       ),
-                      onPressed: () => uploadImage,
-                    )
+                    ),
                   ],
                 ),
+                _buildEmailRow(),
+                _buildPasswordRow(),
+                _buildForgetPasswordButton(),
+                _buildLoginButton(),
+                // _buildOrRow(),
+                //_buildSocialBtnRow(),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSignUpBtn() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 40),
+          child: FlatButton(
+            onPressed: () {},
+            child: MaterialButton(
+              onPressed: () => Navigator.of(context).pushNamed('/HrRegister'),
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: 'Dont have an account? ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Sign Up',
+                    style: TextStyle(
+                      color: mainColor,
+                      fontSize: MediaQuery.of(context).size.height / 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ]),
               ),
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Hr Login'),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.user),
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed('/HrRegister'),
+                  ),
+                  Text('Register', style: TextStyle(fontSize: 20)),
+                ],
+              )),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => addHrUser(_hrNameController.text,
-            _hrcontactController.text, _hremailController.text),
-        child: Icon(Icons.add),
+      body: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Color(0xfff2f3f7),
+          body: SingleChildScrollView(
+            child: Container(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: mainColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: const Radius.circular(70),
+                          bottomRight: const Radius.circular(70),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _buildLogo(),
+                      _buildContainer(),
+                      //_buildSignUpBtn(),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

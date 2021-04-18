@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobs_app2/model/constants.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
@@ -9,7 +10,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String email, password, confirmpassword;
+  String User_type = 'User';
+  String email, password, confirmpassword,contactinfo,username;
   @override
   Widget _buildLogo() {
     return Row(
@@ -30,6 +32,48 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _buildNameRow()
+  {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        onChanged: (value) {
+          setState(() {
+            username = value;
+          });
+        },
+        decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.email,
+              color: mainColor,
+            ),
+            labelText: 'UserName'),
+      ),
+    );
+  }
+
+
+  Widget _buildContactinfoRow()
+  {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) {
+          setState(() {
+            contactinfo = value;
+          });
+        },
+        decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.email,
+              color: mainColor,
+            ),
+            labelText: 'Contactinfo'),
+      ),
+    );
+  }
   Widget _buildEmailRow() {
     return Padding(
       padding: EdgeInsets.all(8),
@@ -109,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
               borderRadius: BorderRadius.circular(30.0),
             ),
             onPressed: () async {
-              bool shouldNavigate = await register(email, password);
+              bool shouldNavigate = await register_hrlogin(username,contactinfo,email,password,User_type);
               if (shouldNavigate) {
                 //Navigate
                 Navigator.push(
@@ -164,8 +208,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
+                _buildNameRow(),
                 _buildEmailRow(),
                 _buildPasswordRow(),
+                _buildContactinfoRow(),
                 _buildRegisterButton(),
                 // _buildOrRow(),
                 //_buildSocialBtnRow(),

@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:jobs_app2/model/AdState.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
 import 'package:jobs_app2/ui/newlogger.dart';
+import 'package:provider/provider.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
+  @override
+  _MainDrawerState createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  BannerAd banner;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adstate = Provider.of<AdState>(context);
+    adstate.initialization.then((status) {
+      setState(
+        () {
+          banner = BannerAd(
+              size: AdSize.banner,
+              adUnitId: adstate.banneradunit,
+              request: AdRequest(),
+              listener: adstate.adListener)
+            ..load();
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,6 +116,19 @@ class MainDrawer extends StatelessWidget {
                     size: 30.0,
                   ),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
+                if (banner == null)
+                  SizedBox(
+                    height: 50,
+                  )
+                else
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: AdWidget(ad: banner),
+                  )
               ],
             ),
           ),

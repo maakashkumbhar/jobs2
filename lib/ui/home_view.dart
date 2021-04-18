@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("City Jobs"),
+        title: Text("CityJobs"),
       ),
       drawer: Drawer(
         child: MainDrawer(),

@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyJobs extends StatefulWidget {
+
   @override
   _AllJobsState createState() => _AllJobsState();
 }
 
 class _AllJobsState extends State<MyJobs> {
+
   String uid = FirebaseAuth.instance.currentUser.uid;
   @override
   Widget build(BuildContext context) {
