@@ -28,7 +28,7 @@ Future<bool> register(String email, String password ) async {
     if (e.code == 'weak-password') {
       print('The Password provided is too weak.');
     } else if (e.code == 'email-already-in-use') {
-      print('Ther account already exists for that email.');
+      print('The account already exists for that email.');
     }
     return false;
   } catch (e) {
@@ -61,7 +61,7 @@ Future<bool> register_hrlogin(String name , String contactinfo, String email ,St
     if (e.code == 'weak-password') {
       print('The Password provided is too weak.');
     } else if (e.code == 'email-already-in-use') {
-      print('Ther account already exists for that email.');
+      print('The fjjhfjaccount already exists for that email.');
     }
     return false;
   } catch (e) {

@@ -102,7 +102,7 @@ class _Hr_loginState extends State<Hr_login> {
             ),
             onPressed: () async {
               bool shouldNavigate = await signIn(email, password);
-              Navigator.of(context).pushNamed('/NormalUser');
+              Navigator.of(context).pushNamed('/mainHome');
             },
             child: Text(
               "Login",

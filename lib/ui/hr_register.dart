@@ -155,8 +155,11 @@ class _HrLoginState extends State<Hr_register> {
                           ],
                         ),
                       ),
-                      onPressed: () => register_hrlogin(
-                          username, contactinfo, email, password, User_type),
+                      onPressed: () async{
+                        bool shouldnavigate = await register_hrlogin(username, contactinfo, email, password, User_type);
+                            Navigator.of(context).pushNamed('/mainHome');
+
+                      },
                     ),
                   ],
                 ),

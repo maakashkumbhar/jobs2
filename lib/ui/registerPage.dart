@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobs_app2/model/constants.dart';
 import 'package:jobs_app2/net/flutterfire.dart';
+import 'package:jobs_app2/ui/UserView.dart';
 import 'package:jobs_app2/ui/home_view.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -159,7 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Home(),
+                      builder: (context) => UserView(),
                     ));
               } else {
                 //Add Somthing for the else part like a 404 page

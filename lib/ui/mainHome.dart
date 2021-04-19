@@ -7,7 +7,6 @@ import 'package:jobs_app2/ui/newlogger.dart';
 import 'UserView.dart';
 import 'home_view.dart';
 
-
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -22,46 +21,38 @@ class _MainScreenState extends State<MainScreen> {
         title: Text('Home'),
       ),
       body: StreamBuilder<DocumentSnapshot>(
-      stream:FirebaseFirestore.instance.collection('Hr_Users').doc(uid).snapshots(),
-        builder: (BuildContext context , AsyncSnapshot<DocumentSnapshot> snapshot){
-        if(snapshot.hasError)
-    {
-      return Text("Error ${snapshot.error}");
-    }
-        else if(snapshot.hasData)
-    {
-      return checkRole(snapshot.data,context);
-    }
-        return LinearProgressIndicator();
+        stream: FirebaseFirestore.instance
+            .collection('Hr_Users')
+            .doc(uid)
+            .snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text("Error ${snapshot.error}");
           }
-      )
-
+          if (snapshot.data['type'] == 'Hr') {
+            _navigateToHr(context);
+          }
+          if (snapshot.data['type'] == 'User') {
+            _navigateToNormalUser(context);
+          }
+          return CircularProgressIndicator();
+          //switch (snapshot.connectionState) {
+          // case ConnectionState.waiting:
+          //  return CircularProgressIndicator();
+          //default:
+          // return checkRole(snapshot.data, context);
+          //}
+        },
+      ),
     );
   }
 }
 
-Center checkRole(DocumentSnapshot snapshot , BuildContext context)
-{
-  final datadocs = snapshot.data();
-  if (snapshot.data == null)
-    {
-      return Center(
-        child: Text('No data set in the UserId document'),
-      );
-    }
+_navigateToHr(BuildContext context) {
+  Navigator.of(context).pushNamed('/HomeScreen');
+}
 
-  if(datadocs['type'] == 'Hr')
-    {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, "/HomeScreen");
-        print('Checked the Hr Page');
-      });
-    }
-  else
-    {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, "/NormalUser");
-        print('Checked the User Page');
-      });
-    }
+_navigateToNormalUser(BuildContext context) {
+  Navigator.of(context).pushNamed('/NormalUser');
 }
